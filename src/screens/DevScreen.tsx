@@ -13,7 +13,7 @@ function ValidateButton({ manifest }: { manifest: LabManifest }) {
   const [result, setResult] = useState<{ ok: boolean; error?: string } | null>(null);
   const validate = () => {
     try { LabManifestSchema.parse(manifest); setResult({ ok: true }); }
-    catch (e: any) { setResult({ ok: false, error: e.message ?? String(e) }); }
+    catch (e: unknown) { setResult({ ok: false, error: e instanceof Error ? e.message : String(e) }); }
   };
   return (
     <div className="inline-flex items-center gap-2">

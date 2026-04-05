@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { ArrowLeft, Cpu, Target, Infinity, CreditCard, Lock, CheckCircle, Loader2 } from "lucide-react";
+import { ArrowLeft, Cpu, Target, Infinity as InfinityIcon, CreditCard, Lock, CheckCircle, Loader2 } from "lucide-react";
 import { labCatalog } from "../data/catalog";
 import { usePurchase } from "../hooks/usePurchase";
 import { usePremiumStatus } from "../hooks/usePremiumStatus";
@@ -17,7 +17,7 @@ export default function UpgradeScreen() {
   const valueProps = [
     { icon: Cpu, text: `${premiumCount} premium IT simulations — yours forever` },
     { icon: Target, text: "Advanced hardware, networking, cloud, and OS troubleshooting scenarios" },
-    { icon: Infinity, text: "All future labs included as they're released" },
+    { icon: InfinityIcon, text: "All future labs included as they're released" },
     { icon: CreditCard, text: "No subscription — one-time investment in your career" },
   ];
 
