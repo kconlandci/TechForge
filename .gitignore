@@ -1,0 +1,38 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+
+# Environment
+.env
+.env.*
+!.env.example
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Android build artifacts
+*.jks
+*.keystore
+android/app/release/
+android/.gradle/
+android/build/
+android/app/build/
+
+# iOS
+ios/App/Pods/
+
+# Logs
+*.log
+npm-debug.log*
+
+# Capacitor
+.capacitor/
