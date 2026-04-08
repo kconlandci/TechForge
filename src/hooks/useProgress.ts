@@ -2,8 +2,9 @@
 // TechForge — Progress Persistence Hook
 // ============================================================
 
-import { useState, useCallback, useEffect } from "react";
+import { useState, useCallback, useEffect, useRef } from "react";
 import { App as CapApp } from "@capacitor/app";
+import { Preferences } from "@capacitor/preferences";
 
 interface ScenarioResult {
   scenarioIndex: number;
@@ -35,16 +36,25 @@ interface TechForgeProgress {
 }
 
 const STORAGE_KEY = "techforge_progress";
+const PREFS_KEY = "techforge_progress";
 const CURRENT_SCHEMA_VERSION = 2;
 
+function getLocalDateString(date?: Date): string {
+  const d = date ?? new Date();
+  const year = d.getFullYear();
+  const month = String(d.getMonth() + 1).padStart(2, "0");
+  const day = String(d.getDate()).padStart(2, "0");
+  return `${year}-${month}-${day}`;
+}
+
 function getToday(): string {
-  return new Date().toISOString().slice(0, 10);
+  return getLocalDateString();
 }
 
 function getYesterday(): string {
   const d = new Date();
   d.setDate(d.getDate() - 1);
-  return d.toISOString().slice(0, 10);
+  return getLocalDateString(d);
 }
 
 function createDefaultProgress(): TechForgeProgress {
@@ -132,13 +142,67 @@ function saveProgress(progress: TechForgeProgress) {
   }
 }
 
+function mirrorToPreferences(progress: TechForgeProgress) {
+  Preferences.set({
+    key: PREFS_KEY,
+    value: JSON.stringify(progress),
+  }).catch((err) => {
+    console.warn("[TechForge] Failed to mirror progress to Preferences:", err);
+  });
+}
+
+async function recoverFromPreferences(
+  currentUserId?: string | null
+): Promise<TechForgeProgress | null> {
+  try {
+    const { value } = await Preferences.get({ key: PREFS_KEY });
+    if (value) {
+      const parsed = JSON.parse(value);
+      if (!isValidProgress(parsed)) {
+        return null;
+      }
+      const record = parsed as unknown as Record<string, unknown>;
+      // Reject recovered progress if it belongs to a different user
+      if (currentUserId && record.userId && record.userId !== currentUserId) {
+        console.warn("[TechForge] UID mismatch during recovery — rejecting stale progress.");
+        return null;
+      }
+      const migrated = migrateProgress(record);
+      console.info("[TechForge] Recovered progress from Preferences backup.");
+      return migrated;
+    }
+  } catch {
+    // Preferences unavailable or corrupted
+  }
+  return null;
+}
+
 export function useProgress(userId?: string | null) {
   const [progress, setProgress] = useState<TechForgeProgress>(loadProgress);
+  const hasAttemptedRecovery = useRef(false);
 
+  // On mount, check if localStorage was cleared and recover from Preferences
+  useEffect(() => {
+    if (hasAttemptedRecovery.current) return;
+    hasAttemptedRecovery.current = true;
+
+    const localData = localStorage.getItem(STORAGE_KEY);
+    if (!localData) {
+      recoverFromPreferences(userId).then((recovered) => {
+        if (recovered) {
+          saveProgress(recovered);
+          setProgress(recovered);
+        }
+      });
+    }
+  }, [userId]);
+
+  // Persist progress when app is backgrounded (Android can kill WebView)
   useEffect(() => {
     const listener = CapApp.addListener("pause", () => {
       const current = loadProgress();
       saveProgress(current);
+      mirrorToPreferences(current);
     });
     return () => { listener.then((l) => l.remove()); };
   }, []);
@@ -172,6 +236,7 @@ export function useProgress(userId?: string | null) {
         next.lastLabDate = today;
         next.longestStreak = Math.max(next.longestStreak || 0, next.streakDays || 0);
         saveProgress(next);
+        mirrorToPreferences(next);
         return next;
       });
     },
@@ -193,6 +258,7 @@ export function useProgress(userId?: string | null) {
   const resetProgress = useCallback(() => {
     const fresh = createDefaultProgress();
     saveProgress(fresh);
+    mirrorToPreferences(fresh);
     setProgress(fresh);
   }, []);
 

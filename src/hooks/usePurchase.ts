@@ -64,6 +64,8 @@ export function usePurchase(): UsePurchase {
         await setPremiumStatus(true);
         return { success: true };
       }
+      // No active entitlement — clear local premium cache (handles refunds)
+      await setPremiumStatus(false);
       return { success: false, error: "unknown" };
     } catch (err) {
       console.error("[TechForge] Restore failed:", err);
