@@ -3,21 +3,22 @@ import type { LabManifest } from "../../types/manifest";
 export const labManifest: LabManifest = {
   schemaVersion: "1.1",
   id: "cloud-security-config",
-  version: 1,
-  title: "Configure Cloud Security Groups and Firewalls",
+  version: 2,
+  title: "Cloud Security Config: Auditing AI-Generated Rules",
   tier: "advanced",
   track: "virtualization-cloud",
   difficulty: "challenging",
   accessLevel: "premium",
-  tags: ["cloud", "security", "firewall", "security-groups", "nsg", "zero-trust", "CompTIA-A+"],
+  tags: ["cloud", "security", "firewall", "security-groups", "nsg", "zero-trust", "CompTIA-A+", "ai-review"],
   description:
-    "Configure cloud security groups, network ACLs, and firewall rules to protect a multi-tier application following the principle of least privilege and defense-in-depth.",
+    "An AI infrastructure assistant generated these cloud security configurations — security groups, network security groups, and container settings — while 'making sure the deployment doesn't hit connectivity errors.' Audit its output and remediate each setting to least privilege and defense-in-depth.",
   estimatedMinutes: 22,
   learningObjectives: [
     "Design security group rules following the principle of least privilege",
     "Implement defense-in-depth with multiple security layers",
     "Configure stateful vs stateless firewall rules in cloud environments",
     "Audit and remediate overly permissive security configurations",
+    "Verify AI-generated cloud security configurations against least-privilege principles before accepting them",
   ],
   sortOrder: 410,
   status: "published",
@@ -29,7 +30,7 @@ export const labManifest: LabManifest = {
       type: "toggle-config",
       title: "Locking Down a Public-Facing Web Application",
       description:
-        "A security audit found that an AWS web application has overly permissive security groups. The application has a public ALB, private EC2 application servers, and a private RDS MySQL database. The audit report states: 'All security groups allow 0.0.0.0/0 inbound on all ports. This is a critical finding.' You must remediate all findings.",
+        "An AI infrastructure assistant built this AWS environment, and a security audit has now reported on what it produced. The application has a public ALB, private EC2 application servers, and a private RDS MySQL database. The audit report states: 'All security groups allow 0.0.0.0/0 inbound on all ports. This is a critical finding.' You must remediate all of the assistant's findings.",
       targetSystem: "AWS Security Groups - Production VPC",
       items: [
         {
@@ -120,7 +121,7 @@ export const labManifest: LabManifest = {
       type: "toggle-config",
       title: "Azure NSG Rules for Hybrid Environment",
       description:
-        "A company connects their Azure VNet to their on-premises network (172.16.0.0/12) via ExpressRoute. Azure hosts a web app accessible to the public and an internal API accessible only from on-premises. A penetration test found that the internal API is reachable from the internet and the web app can directly query the on-premises database, violating network segmentation policies.",
+        "The AI assistant also generated the network security groups for this hybrid environment. A company connects their Azure VNet to their on-premises network (172.16.0.0/12) via ExpressRoute. Azure hosts a web app accessible to the public and an internal API accessible only from on-premises. A penetration test found that the internal API is reachable from the internet and the web app can directly query the on-premises database, violating network segmentation policies. Correct the assistant's NSG rules.",
       targetSystem: "Azure Network Security Groups",
       items: [
         {
@@ -193,7 +194,7 @@ export const labManifest: LabManifest = {
       type: "toggle-config",
       title: "Container Security Configuration",
       description:
-        "A development team deployed Docker containers on an ECS cluster with default security settings. A security scan found containers running as root, using the latest tag, and communicating on a shared network without restrictions. You need to harden the container security configuration.",
+        "A development team let the AI assistant generate the ECS task definitions with default security settings. A security scan found containers running as root, using the latest tag, and communicating on a shared network without restrictions. You need to harden the configuration the assistant produced.",
       targetSystem: "AWS ECS Task Definitions and Security",
       items: [
         {
@@ -301,5 +302,5 @@ export const labManifest: LabManifest = {
     "Docker Security Best Practices",
   ],
   createdAt: "2026-03-27T00:00:00Z",
-  updatedAt: "2026-03-27T00:00:00Z",
+  updatedAt: "2026-10-16T00:00:00Z",
 };

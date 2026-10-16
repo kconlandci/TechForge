@@ -169,6 +169,7 @@ export const learningPaths: LearningPath[] = [
       "ts-wireless-interference",
       "ts-printer-fleet",
       "ts-documentation-review",
+      "ai-copilot-reimage-review",
     ],
   },
 ];

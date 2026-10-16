@@ -3,8 +3,8 @@ import type { LabManifest } from "../../types/manifest";
 export const labManifest: LabManifest = {
   schemaVersion: "1.1",
   id: "ts-documentation-review",
-  version: 1,
-  title: "Review and Improve Troubleshooting Documentation",
+  version: 2,
+  title: "Documentation Review: Checking the AI's Drafts",
   tier: "advanced",
   track: "hardware-network-troubleshooting",
   difficulty: "challenging",
@@ -15,9 +15,10 @@ export const labManifest: LabManifest = {
     "sop",
     "process-improvement",
     "troubleshooting",
+    "ai-review",
   ],
   description:
-    "Evaluate existing troubleshooting documentation and knowledge base articles for accuracy, completeness, and usability. Identify gaps, incorrect procedures, and opportunities to improve the team's troubleshooting resources.",
+    "Your team's AI writing assistant now drafts knowledge base articles, closure notes, and procedures from past tickets. Evaluate its output for accuracy, completeness, and usability — and decide what good documentation looks like when a machine writes the first draft.",
   estimatedMinutes: 22,
   learningObjectives: [
     "Evaluate troubleshooting documentation for technical accuracy and completeness",
@@ -25,6 +26,7 @@ export const labManifest: LabManifest = {
     "Apply documentation best practices including clear structure, version control, and audience awareness",
     "Recognize when a knowledge base article could prevent unnecessary escalations",
     "Improve documentation to reduce mean time to resolution for common issues",
+    "Review AI-drafted documentation for missing diagnostic steps and unverified claims before publishing",
   ],
   sortOrder: 514,
   status: "published",
@@ -36,7 +38,7 @@ export const labManifest: LabManifest = {
       type: "action-rationale",
       title: "Evaluating a Flawed KB Article",
       context:
-        "You are reviewing the team's knowledge base. A frequently referenced article titled 'Fix: Outlook Not Connecting to Exchange' contains these steps: 1) Restart the computer. 2) If that doesn't work, create a new Outlook profile. 3) If still broken, reinstall Office. 4) Escalate to Exchange team. The article was written 2 years ago and has been used to resolve 47 tickets. However, the team's ticket data shows that 60% of Outlook connectivity issues in the past 6 months were caused by expired passwords or MFA token failures, which this article does not mention.",
+        "You are reviewing the team's knowledge base. The AI writing assistant drafted a frequently referenced article titled 'Fix: Outlook Not Connecting to Exchange' by summarizing how past tickets were closed. It contains these steps: 1) Restart the computer. 2) If that doesn't work, create a new Outlook profile. 3) If still broken, reinstall Office. 4) Escalate to Exchange team. The draft was generated from two years of closed tickets and has been used to resolve 47 tickets. However, the team's ticket data shows that 60% of Outlook connectivity issues in the past 6 months were caused by expired passwords or MFA token failures, which this article does not mention.",
       actions: [
         {
           id: "dr1-keep-article",
@@ -92,7 +94,7 @@ export const labManifest: LabManifest = {
       type: "action-rationale",
       title: "Missing Documentation After an Incident",
       context:
-        "Last week, a senior technician spent 3 hours troubleshooting a VPN connectivity issue caused by a Windows Firewall profile switching from 'Domain' to 'Public' after a network change. The fix was to run 'gpupdate /force' to reapply the domain firewall profile. The technician resolved the issue but did not document the solution. This week, the same issue occurred for two other users, and a junior technician spent 2 hours on each ticket before escalating. You are reviewing the gap.",
+        "Last week, a senior technician spent 3 hours troubleshooting a VPN connectivity issue caused by a Windows Firewall profile switching from 'Domain' to 'Public' after a network change. The fix was to run 'gpupdate /force' to reapply the domain firewall profile. The technician resolved the issue but did not document the solution. The ticketing system's AI summarizer closed the ticket with the note 'VPN issue resolved by network refresh,' which captures none of the actual fix. This week, the same issue occurred for two other users, and a junior technician spent 2 hours on each ticket before escalating. You are reviewing the gap.",
       actions: [
         {
           id: "dr2-verbal-training",
@@ -148,7 +150,7 @@ export const labManifest: LabManifest = {
       type: "action-rationale",
       title: "SOP for a Critical Process",
       context:
-        "You are tasked with creating a Standard Operating Procedure (SOP) for responding to a server room environmental alert (temperature, humidity, water leak). Currently, there is no written procedure — technicians use their judgment, which has led to inconsistent responses. Last month, a junior tech ignored a humidity alert that later caused condensation on server components. You need to decide the best approach to the SOP.",
+        "You are tasked with creating a Standard Operating Procedure (SOP) for responding to a server room environmental alert (temperature, humidity, water leak). Currently, there is no written procedure — technicians use their judgment, which has led to inconsistent responses. Last month, a junior tech ignored a humidity alert that later caused condensation on server components. You need to decide the best approach to the SOP. The AI document generator has already produced a 20-page comprehensive manual from the prompt.",
       actions: [
         {
           id: "dr3-simple-checklist",
@@ -220,5 +222,5 @@ export const labManifest: LabManifest = {
     "SOP Templates",
   ],
   createdAt: "2026-03-27T00:00:00Z",
-  updatedAt: "2026-03-27T00:00:00Z",
+  updatedAt: "2026-10-16T00:00:00Z",
 };

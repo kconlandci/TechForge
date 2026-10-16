@@ -3,8 +3,8 @@ import type { LabManifest } from "../../types/manifest";
 export const labManifest: LabManifest = {
   schemaVersion: "1.1",
   id: "ts-escalation-judgment",
-  version: 1,
-  title: "When to Escalate vs. Self-Resolve",
+  version: 2,
+  title: "Escalation Judgment: Check the AI Triage Call",
   tier: "intermediate",
   track: "hardware-network-troubleshooting",
   difficulty: "moderate",
@@ -16,9 +16,10 @@ export const labManifest: LabManifest = {
     "sla",
     "communication",
     "troubleshooting",
+    "ai-review",
   ],
   description:
-    "Practice the critical judgment call of when to escalate an issue to a senior technician, vendor, or manager versus when to continue troubleshooting yourself. Learn the escalation criteria used in professional IT environments.",
+    "Your help desk's AI triage copilot pre-labels each ticket with a recommended action. Check its calls against impact, scope, and SLA across three tickets: it waits too long on one emergency, gives up too early on another, and escalates one you should keep. Decide when to overrule it.",
   estimatedMinutes: 18,
   learningObjectives: [
     "Identify situations that require immediate escalation based on impact and scope",
@@ -26,6 +27,7 @@ export const labManifest: LabManifest = {
     "Apply SLA timelines and business impact to escalation decisions",
     "Communicate escalation requests with proper documentation and context",
     "Understand the role of escalation in the troubleshooting methodology",
+    "Evaluate AI triage recommendations against impact, scope, and SLA timelines before accepting or overriding them",
   ],
   sortOrder: 509,
   status: "published",
@@ -37,7 +39,7 @@ export const labManifest: LabManifest = {
       type: "action-rationale",
       title: "Server Room Environmental Alert",
       context:
-        "You receive a monitoring alert: the server room temperature has risen from 68°F to 88°F in the last 30 minutes and is continuing to climb. The HVAC system shows an error state. You are a tier-1 desktop support technician. The server room contains 12 production servers serving 400 users. The facilities team and the senior sysadmin are available by phone. Server hardware typically begins throttling at 95°F and can sustain damage above 104°F.",
+        "You receive a monitoring alert: the server room temperature has risen from 68°F to 88°F in the last 30 minutes and is continuing to climb. The HVAC system shows an error state. You are a tier-1 desktop support technician. The server room contains 12 production servers serving 400 users. The facilities team and the senior sysadmin are available by phone. Server hardware typically begins throttling at 95°F and can sustain damage above 104°F. The AI triage copilot has labeled the ticket P3 and recommended: 'Continue monitoring; escalate if temperature reaches 95°F.'",
       actions: [
         {
           id: "ej1-investigate-hvac",
@@ -93,7 +95,7 @@ export const labManifest: LabManifest = {
       type: "action-rationale",
       title: "Single User Printer Issue at 45 Minutes",
       context:
-        "A single user cannot print to their local USB printer. You have been troubleshooting for 45 minutes. You have tried: restarting the Print Spooler, reinstalling the printer driver, using a different USB port, and testing with a different USB cable. None of these resolved the issue. The printer works when connected to a different PC. The user's PC does not recognize any USB device plugged into any port. Your department SLA is 1 hour for standard priority tickets. A senior technician is available.",
+        "A single user cannot print to their local USB printer. You have been troubleshooting for 45 minutes. You have tried: restarting the Print Spooler, reinstalling the printer driver, using a different USB port, and testing with a different USB cable. None of these resolved the issue. The printer works when connected to a different PC. The user's PC does not recognize any USB device plugged into any port. Your department SLA is 1 hour for standard priority tickets. A senior technician is available. The AI triage copilot's note on the ticket reads: 'Continue troubleshooting until the SLA expires, then escalate.'",
       actions: [
         {
           id: "ej2-keep-trying",
@@ -149,7 +151,7 @@ export const labManifest: LabManifest = {
       type: "action-rationale",
       title: "Premature Escalation Scenario",
       context:
-        "A user's Outlook is not connecting to the Exchange server. You have spent 5 minutes on the ticket. You confirmed the user's internet works (web browsing is fine). You have not yet checked the Outlook profile, tested Outlook in Safe Mode, or verified Exchange server status. A colleague suggests you escalate to the Exchange admin team immediately since it might be a server issue.",
+        "A user's Outlook is not connecting to the Exchange server. You have spent 5 minutes on the ticket. You confirmed the user's internet works (web browsing is fine). You have not yet checked the Outlook profile, tested Outlook in Safe Mode, or verified Exchange server status. The AI triage copilot has already tagged the ticket 'likely server issue' and recommends escalating to the Exchange admin team immediately.",
       actions: [
         {
           id: "ej3-escalate-now",
@@ -221,5 +223,5 @@ export const labManifest: LabManifest = {
     "Escalation Matrix",
   ],
   createdAt: "2026-03-27T00:00:00Z",
-  updatedAt: "2026-03-27T00:00:00Z",
+  updatedAt: "2026-10-16T00:00:00Z",
 };
