@@ -2,6 +2,8 @@
 // TechForge — Lightweight Analytics Hook
 // ============================================================
 
+import { mirrorEventToCloud } from "../services/sync";
+
 const ANALYTICS_KEY = "techforge_analytics";
 
 interface LabStartedEvent { type: "lab_started"; labId: string; timestamp: number; }
@@ -29,6 +31,8 @@ function pushEvent(event: AnalyticsEvent) {
   } catch (err) {
     console.error("[TechForge Analytics] Failed to save event:", err);
   }
+  // Mirror to cloud (fire-and-forget; no-op until auth is ready)
+  mirrorEventToCloud(event as unknown as Record<string, unknown>);
 }
 
 let sessionStartTime: number | null = null;

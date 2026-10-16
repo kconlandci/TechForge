@@ -96,6 +96,7 @@ import { labManifest as osWindowsInstall } from "./labs/os-windows-install";
 import { labManifest as osWindowsUpdate } from "./labs/os-windows-update";
 
 // Troubleshooting labs
+import { labManifest as aiCopilotReimageReview } from "./labs/ai-copilot-reimage-review";
 import { labManifest as tsApplicationError } from "./labs/ts-application-error";
 import { labManifest as tsBlueScreen } from "./labs/ts-blue-screen";
 import { labManifest as tsBootFailure } from "./labs/ts-boot-failure";
@@ -219,6 +220,7 @@ const allLabs: LabManifest[] = [
   tsServerDown,
   tsSlowComputer,
   tsWirelessInterference,
+  aiCopilotReimageReview,
 ];
 
 export const labCatalog = allLabs.sort((a, b) => a.sortOrder - b.sortOrder);

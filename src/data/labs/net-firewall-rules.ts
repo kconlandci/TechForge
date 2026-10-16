@@ -3,15 +3,15 @@ import type { LabManifest } from "../../types/manifest";
 export const labManifest: LabManifest = {
   schemaVersion: "1.1",
   id: "net-firewall-rules",
-  version: 1,
-  title: "Firewall Rule Configuration for Web Server",
+  version: 2,
+  title: "Firewall Rules: Auditing an AI-Generated Ruleset",
   tier: "advanced",
   track: "networking",
   difficulty: "challenging",
   accessLevel: "premium",
-  tags: ["networking", "firewall", "security", "rules", "web-server"],
+  tags: ["networking", "firewall", "security", "rules", "web-server", "ai-review"],
   description:
-    "Configure firewall rules to secure a public-facing web server while allowing necessary traffic. Balance security with availability for HTTP, HTTPS, SSH, and database access.",
+    "An AI network assistant generated this firewall configuration for a public-facing web server from a plain-English prompt. Audit its output rule by rule — it optimized for 'nothing breaks,' not for least privilege — and set each rule to the correct state, balancing security with availability.",
   estimatedMinutes: 20,
   learningObjectives: [
     "Create firewall rules using the principle of least privilege",
@@ -19,6 +19,7 @@ export const labManifest: LabManifest = {
     "Configure source and destination restrictions for sensitive services",
     "Order firewall rules correctly for proper evaluation",
     "Identify overly permissive rules that create security vulnerabilities",
+    "Audit AI-generated firewall rulesets for overly permissive rules before deployment",
   ],
   sortOrder: 213,
   status: "published",
@@ -30,7 +31,7 @@ export const labManifest: LabManifest = {
       id: "nfr-scenario-1",
       title: "Web Server Inbound Rules",
       description:
-        "Configure inbound firewall rules for a web server at 10.0.1.100. It serves public HTTP/HTTPS traffic, and the admin team (10.0.2.0/24) needs SSH access for management.",
+        "An AI network assistant configured the inbound firewall rules for a web server at 10.0.1.100, working from the prompt 'set up my web server firewall.' The server serves public HTTP/HTTPS traffic, and the admin team (10.0.2.0/24) needs SSH access for management. The states below are the assistant's output — review and correct each rule.",
       targetSystem: "Linux iptables — Inbound Rules",
       items: [
         {
@@ -99,7 +100,7 @@ export const labManifest: LabManifest = {
       id: "nfr-scenario-2",
       title: "Database Server Protection",
       description:
-        "The web server (10.0.1.100) connects to a database server (10.0.1.200) on port 3306 (MySQL). Configure the database server's firewall to only allow necessary connections.",
+        "The same AI assistant configured the database server's firewall, stating its goal was 'making sure the app never loses connectivity.' The web server (10.0.1.100) connects to the database server (10.0.1.200) on port 3306 (MySQL). Review the assistant's rules and restrict the firewall to only the necessary connections.",
       targetSystem: "Database Server Firewall — Inbound Rules",
       items: [
         {
@@ -155,7 +156,7 @@ export const labManifest: LabManifest = {
       id: "nfr-scenario-3",
       title: "Outbound Rule Configuration",
       description:
-        "Configure outbound rules on the web server. The server needs to reach the internet for OS updates, DNS resolution, and sending email notifications.",
+        "Finally, review the outbound rules the AI assistant set on the web server. The server needs to reach the internet for OS updates, DNS resolution, and sending email notifications. Correct any rule that grants more egress than the server legitimately needs.",
       targetSystem: "Web Server Firewall — Outbound Rules",
       items: [
         {
@@ -222,5 +223,5 @@ export const labManifest: LabManifest = {
     "Firewall configuration is a core skill for any cybersecurity role. Demonstrating that you can write rules using least privilege and default deny puts you ahead of most entry-level candidates.",
   toolRelevance: ["iptables", "Windows Firewall", "pfSense", "netstat", "nmap"],
   createdAt: "2026-03-27T00:00:00Z",
-  updatedAt: "2026-03-27T00:00:00Z",
+  updatedAt: "2026-10-16T00:00:00Z",
 };

@@ -48,9 +48,9 @@ export default function LabScreen() {
         <div className="text-center">
           <Lock size={32} className="text-slate-500 mx-auto mb-3" />
           <p className="text-sm font-medium text-white mb-1">Premium Lab</p>
-          <p className="text-xs text-slate-400 mb-4">This lab requires Founders Pack access.</p>
+          <p className="text-xs text-slate-400 mb-4">This simulation requires Forge Labs Pro access.</p>
           <div className="flex gap-3 justify-center">
-            <button onClick={() => navigate("/upgrade")} className="px-4 py-2 rounded-xl bg-sky-500 text-white font-medium text-sm min-h-[44px]">View Founders Pack</button>
+            <button onClick={() => navigate("/upgrade")} className="px-4 py-2 rounded-xl bg-sky-500 text-white font-medium text-sm min-h-[44px]">View Forge Labs Pro</button>
             <button onClick={() => navigate("/")} className="px-4 py-2 rounded-xl bg-slate-700 text-slate-300 font-medium text-sm min-h-[44px]">Go Back</button>
           </div>
         </div>

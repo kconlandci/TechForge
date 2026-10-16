@@ -12,7 +12,14 @@ import {
 } from "react";
 import { onAuthStateChanged, signInAnonymously } from "firebase/auth";
 import { Preferences } from "@capacitor/preferences";
+import { Capacitor } from "@capacitor/core";
+import { Purchases } from "@revenuecat/purchases-capacitor";
 import { auth } from "../config/firebase";
+import {
+  setSyncUid,
+  pullCloudProgress,
+  CLOUD_PULL_EVENT,
+} from "../services/sync";
 
 interface AuthContextType {
   uid: string | null;
@@ -57,6 +64,30 @@ export function AuthProvider({ children }: { children: ReactNode }) {
               );
             }
             await storeUid(currentUid);
+
+            // Wire Firebase UID into RevenueCat. logIn aliases any prior
+            // anonymous RC user to this UID, so entitlements follow the
+            // user across reinstalls/devices. Safe to call every auth
+            // event — RC no-ops when the UID is already current.
+            // (Mirrored from ThreatForge Phase 1 / CloudForge sync.)
+            if (Capacitor.isNativePlatform()) {
+              try {
+                await Purchases.logIn({ appUserID: currentUid });
+              } catch (rcError) {
+                console.error("[TechForge] Purchases.logIn failed:", rcError);
+              }
+            }
+
+            // Cloud sync: register the UID, then pull any existing cloud
+            // progress. useProgress merges it via the CLOUD_PULL_EVENT.
+            setSyncUid(currentUid);
+            pullCloudProgress(currentUid).then((remote) => {
+              if (remote) {
+                window.dispatchEvent(
+                  new CustomEvent(CLOUD_PULL_EVENT, { detail: remote })
+                );
+              }
+            });
           } catch (storageErr) {
             console.warn("[TechForge] UID storage failed:", storageErr);
           }

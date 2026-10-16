@@ -3,20 +3,21 @@ import type { LabManifest } from "../../types/manifest";
 export const labManifest: LabManifest = {
   schemaVersion: "1.1",
   id: "hw-disk-failure",
-  version: 1,
-  title: "Diagnose a Failing Hard Drive",
+  version: 2,
+  title: "Diagnose a Failing Hard Drive: The AI Said 'Just Run chkdsk'",
   tier: "intermediate",
   track: "hardware",
   difficulty: "moderate",
   accessLevel: "free",
-  tags: ["HDD", "SSD", "SMART", "disk-failure", "data-recovery", "CrystalDiskInfo"],
+  tags: ["HDD", "SSD", "SMART", "disk-failure", "data-recovery", "CrystalDiskInfo", "ai-review"],
   description:
-    "A workstation shows signs of storage failure. Investigate SMART data, error logs, and symptoms to determine if the drive is failing and what action to take before data loss occurs.",
+    "A workstation shows signs of storage failure. The team's AI support assistant reviewed the same SMART data and concluded the drive is fine — 'just run chkdsk.' Verify its verdict against the SMART attributes, error logs, and symptoms before anyone acts on it.",
   estimatedMinutes: 18,
   learningObjectives: [
     "Interpret SMART (Self-Monitoring, Analysis, and Reporting Technology) attributes for drive health",
     "Distinguish between imminent drive failure and recoverable errors",
     "Recommend appropriate data backup and drive replacement procedures",
+    "Verify an AI assistant's drive-health verdict against the raw SMART attributes before acting on it",
   ],
   sortOrder: 309,
   status: "published",
@@ -28,8 +29,14 @@ export const labManifest: LabManifest = {
       id: "disk-1",
       title: "Clicking HDD with Increasing Bad Sectors",
       objective:
-        "A user reports their desktop has become very slow and they hear occasional clicking sounds from inside the case. Files are taking longer to open and some have become corrupted. Investigate the drive health data.",
+        "A user reports their desktop has become very slow and they hear occasional clicking sounds from inside the case. Files are taking longer to open and some have become corrupted. The AI support assistant has already reviewed the case and published its assessment (first item below). Investigate the drive health data and decide whether its call is right.",
       investigationData: [
+        {
+          id: "ai-assessment",
+          label: "AI Support Assistant — Assessment",
+          content:
+            "The assistant reviewed the SMART summary line ('Health Status: CAUTION') and concluded: 'This drive is healthy. The caution flag is precautionary. Run chkdsk /r to repair the bad sectors, then continue using the drive normally. No backup urgency.'",
+        },
         {
           id: "smart-data",
           label: "CrystalDiskInfo SMART Report",
@@ -83,7 +90,7 @@ export const labManifest: LabManifest = {
       id: "disk-2",
       title: "SSD with Endurance Warning",
       objective:
-        "A database server's SMART monitoring tool triggers a warning on the boot SSD. The server is still performing normally. Investigate whether this requires immediate action.",
+        "A database server's SMART monitoring tool triggers a warning on the boot SSD. The server is still performing normally. The AI monitoring assistant auto-triaged the alert as 'drive failing — replace immediately' and opened a priority ticket. Investigate whether its call matches the data, and whether this requires immediate action.",
       investigationData: [
         {
           id: "smart-data",
@@ -138,7 +145,7 @@ export const labManifest: LabManifest = {
       id: "disk-3",
       title: "NVMe SSD Not Detected After Power Outage",
       objective:
-        "After a building-wide power outage, a workstation no longer detects its NVMe boot drive in BIOS. The system boots to 'No Boot Device Found.' Investigate and determine the cause.",
+        "After a building-wide power outage, a workstation no longer detects its NVMe boot drive in BIOS. The system boots to 'No Boot Device Found.' The AI assistant's first suggestion, offered before any diagnostics, was to flash the BIOS. Investigate the evidence and determine the cause.",
       investigationData: [
         {
           id: "bios-check",
@@ -209,5 +216,5 @@ export const labManifest: LabManifest = {
     "USB-to-NVMe/SATA enclosures for isolation testing",
   ],
   createdAt: "2026-03-27T00:00:00Z",
-  updatedAt: "2026-03-27T00:00:00Z",
+  updatedAt: "2026-10-16T00:00:00Z",
 };

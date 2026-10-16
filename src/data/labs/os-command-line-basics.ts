@@ -3,21 +3,22 @@ import type { LabManifest } from "../../types/manifest";
 export const labManifest: LabManifest = {
   schemaVersion: "1.1",
   id: "os-command-line-basics",
-  version: 1,
-  title: "Choose Correct CLI Commands for System Tasks",
+  version: 2,
+  title: "Verify the AI's Suggested CLI Commands",
   tier: "beginner",
   track: "operating-systems",
   difficulty: "easy",
   accessLevel: "free",
-  tags: ["command-line", "cmd", "powershell", "windows", "cli"],
+  tags: ["command-line", "cmd", "powershell", "windows", "cli", "ai-review"],
   description:
-    "Select the correct Windows command-line commands to accomplish common system administration tasks including file management, network diagnostics, and system information.",
+    "An AI assistant suggested the commands in each scenario for three common admin tasks — system file repair, DNS diagnosis, and a disk-space investigation. Some of its suggestions are wrong for the task, and one is outright destructive. Choose the command you would actually run.",
   estimatedMinutes: 12,
   learningObjectives: [
     "Identify the correct CLI command for common system administration tasks",
     "Distinguish between CMD and PowerShell command equivalents",
     "Use command-line switches and parameters correctly",
     "Understand when elevated (admin) command prompts are required",
+    "Verify AI-suggested commands before running them — especially destructive or irreversible ones",
   ],
   sortOrder: 602,
   status: "published",
@@ -29,7 +30,7 @@ export const labManifest: LabManifest = {
       type: "action-rationale",
       title: "Repair System Files",
       context:
-        "A user reports that Windows is displaying random error messages and some Settings app pages crash immediately. You suspect system file corruption. You have an elevated Command Prompt open. Which command should you run first?",
+        "A user reports that Windows is displaying random error messages and some Settings app pages crash immediately. You suspect system file corruption. You asked an AI assistant which command to run, and it listed the four options below. You have an elevated Command Prompt open. Which command should you actually run first?",
       actions: [
         {
           id: "cl1-sfc",
@@ -85,7 +86,7 @@ export const labManifest: LabManifest = {
       type: "action-rationale",
       title: "Network Connectivity Troubleshooting",
       context:
-        "A workstation can ping its default gateway (192.168.1.1) but cannot access any websites. DNS is configured as 8.8.8.8. You need to verify whether DNS resolution is working. Which command helps diagnose this?",
+        "A workstation can ping its default gateway (192.168.1.1) but cannot access any websites. DNS is configured as 8.8.8.8. An AI assistant offered the four commands below to verify whether DNS resolution is working. Which of its suggestions actually diagnoses this?",
       actions: [
         {
           id: "cl2-nslookup",
@@ -141,7 +142,7 @@ export const labManifest: LabManifest = {
       type: "action-rationale",
       title: "Disk Space Investigation",
       context:
-        "A user's C: drive shows only 2 GB free on a 256 GB SSD. They say they haven't installed anything new. You need to find what is consuming the disk space. You are in an elevated Command Prompt. Which approach is most effective?",
+        "A user's C: drive shows only 2 GB free on a 256 GB SSD. They say they haven't installed anything new. You need to find what is consuming the disk space. The AI assistant's suggestions are below — one of them would seriously damage Windows if followed. You are in an elevated Command Prompt. Which approach is most effective and safe?",
       actions: [
         {
           id: "cl3-dir",
@@ -214,5 +215,5 @@ export const labManifest: LabManifest = {
     "DISM",
   ],
   createdAt: "2026-03-27T00:00:00Z",
-  updatedAt: "2026-03-27T00:00:00Z",
+  updatedAt: "2026-10-16T00:00:00Z",
 };
