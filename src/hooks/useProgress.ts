@@ -5,6 +5,11 @@
 import { useState, useCallback, useEffect, useRef } from "react";
 import { App as CapApp } from "@capacitor/app";
 import { Preferences } from "@capacitor/preferences";
+import {
+  queueCloudPush,
+  mergeProgress,
+  CLOUD_PULL_EVENT,
+} from "../services/sync";
 
 interface ScenarioResult {
   scenarioIndex: number;
@@ -197,12 +202,31 @@ export function useProgress(userId?: string | null) {
     }
   }, [userId]);
 
+  // Merge cloud progress when AuthContext pulls it (fired once auth is ready).
+  // Merge is max()/union-based, so applying it twice is harmless.
+  useEffect(() => {
+    const handler = (e: Event) => {
+      const remote = (e as CustomEvent<TechForgeProgress>).detail;
+      if (!remote) return;
+      setProgress((prev) => {
+        const merged = mergeProgress(prev, remote);
+        saveProgress(merged);
+        mirrorToPreferences(merged);
+        queueCloudPush(merged);
+        return merged;
+      });
+    };
+    window.addEventListener(CLOUD_PULL_EVENT, handler);
+    return () => window.removeEventListener(CLOUD_PULL_EVENT, handler);
+  }, []);
+
   // Persist progress when app is backgrounded (Android can kill WebView)
   useEffect(() => {
     const listener = CapApp.addListener("pause", () => {
       const current = loadProgress();
       saveProgress(current);
       mirrorToPreferences(current);
+      queueCloudPush(current);
     });
     return () => { listener.then((l) => l.remove()); };
   }, []);
@@ -237,6 +261,7 @@ export function useProgress(userId?: string | null) {
         next.longestStreak = Math.max(next.longestStreak || 0, next.streakDays || 0);
         saveProgress(next);
         mirrorToPreferences(next);
+        queueCloudPush(next);
         return next;
       });
     },
@@ -259,6 +284,7 @@ export function useProgress(userId?: string | null) {
     const fresh = createDefaultProgress();
     saveProgress(fresh);
     mirrorToPreferences(fresh);
+    queueCloudPush(fresh);
     setProgress(fresh);
   }, []);
 

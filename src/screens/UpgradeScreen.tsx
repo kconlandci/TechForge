@@ -15,10 +15,10 @@ export default function UpgradeScreen() {
   const premiumCount = premiumLabs.length;
 
   const valueProps = [
-    { icon: Cpu, text: `${premiumCount} premium IT simulations — yours forever` },
+    { icon: Cpu, text: `${premiumCount} premium IT simulations, all unlocked` },
     { icon: Target, text: "Advanced hardware, networking, cloud, and OS troubleshooting scenarios" },
-    { icon: InfinityIcon, text: "All future labs included as they're released" },
-    { icon: CreditCard, text: "No subscription — one-time investment in your career" },
+    { icon: InfinityIcon, text: "New labs included as they're released" },
+    { icon: CreditCard, text: "Monthly or yearly plans — cancel anytime" },
   ];
 
   const handlePurchase = async () => {
@@ -46,12 +46,12 @@ export default function UpgradeScreen() {
         <div className="sticky top-0 z-10 bg-slate-900/95 backdrop-blur border-b border-slate-800 px-4 py-3">
           <div className="max-w-lg mx-auto flex items-center gap-3">
             <button onClick={() => window.history.length > 1 ? navigate(-1) : navigate("/")} aria-label="Go back" className="min-w-[48px] min-h-[48px] flex items-center justify-center -ml-2"><ArrowLeft size={20} className="text-slate-400" /></button>
-            <h1 className="text-sm font-semibold text-white">Founding Member Access</h1>
+            <h1 className="text-sm font-semibold text-white">Forge Labs Pro</h1>
           </div>
         </div>
         <div className="max-w-lg mx-auto p-4 pt-16 text-center">
           <CheckCircle size={48} className="text-green-400 mx-auto mb-4" />
-          <h2 className="text-xl font-bold text-white mb-2">You're a Founding Member!</h2>
+          <h2 className="text-xl font-bold text-white mb-2">You're a Forge Labs Pro Member!</h2>
           <p className="text-sm text-slate-400 mb-8">All premium labs are unlocked. Thank you for your support.</p>
           <button onClick={() => navigate("/")} className="px-6 py-3 rounded-xl bg-sky-500 text-white font-semibold text-sm">Start Exploring</button>
         </div>
@@ -64,13 +64,13 @@ export default function UpgradeScreen() {
       <div className="sticky top-0 z-10 bg-slate-900/95 backdrop-blur border-b border-slate-800 px-4 py-3">
         <div className="max-w-lg mx-auto flex items-center gap-3">
           <button onClick={() => window.history.length > 1 ? navigate(-1) : navigate("/")} className="min-w-[48px] min-h-[48px] flex items-center justify-center -ml-2"><ArrowLeft size={20} className="text-slate-400" /></button>
-          <h1 className="text-sm font-semibold text-white">Founding Member Access</h1>
+          <h1 className="text-sm font-semibold text-white">Forge Labs Pro</h1>
         </div>
       </div>
       <div className="max-w-lg mx-auto p-4 pb-12">
         <div className="text-center mb-8 pt-4">
-          <h2 className="text-2xl font-bold text-white mb-2">Become a Founding Member</h2>
-          <p className="text-sm text-slate-400 leading-relaxed max-w-xs mx-auto">Get lifetime access to all premium IT simulations. One payment, no subscriptions.</p>
+          <h2 className="text-2xl font-bold text-white mb-2">Join Forge Labs Pro</h2>
+          <p className="text-sm text-slate-400 leading-relaxed max-w-xs mx-auto">Unlock all premium IT simulations with a monthly or yearly subscription — including new AI-era labs as they're released.</p>
         </div>
         <div className="space-y-3 mb-8">
           {valueProps.map((item, i) => {
@@ -84,15 +84,15 @@ export default function UpgradeScreen() {
           })}
         </div>
         <div className="bg-slate-800 border-2 border-sky-500 rounded-xl p-6 text-center mb-6 relative">
-          <div className="absolute -top-2.5 left-1/2 -translate-x-1/2 px-3 py-0.5 rounded-full bg-sky-500 text-[9px] font-bold text-white whitespace-nowrap">Founding Member — Limited Time</div>
-          <div className="text-4xl font-bold text-white mt-2">$14.99</div>
-          <div className="text-xs text-sky-300 mt-1">one-time purchase</div>
+          <div className="absolute -top-2.5 left-1/2 -translate-x-1/2 px-3 py-0.5 rounded-full bg-sky-500 text-[9px] font-bold text-white whitespace-nowrap">Forge Labs Pro</div>
+          <div className="text-4xl font-bold text-white mt-2">Full Access</div>
+          <div className="text-xs text-sky-300 mt-1">Monthly &amp; yearly plans · cancel anytime</div>
         </div>
         {errorMsg && <p className="text-xs text-red-400 text-center mb-3">{errorMsg}</p>}
         <button onClick={handlePurchase} disabled={isBusy} className="w-full py-3.5 rounded-xl bg-sky-500 text-white font-semibold text-base mb-2 active:bg-sky-600 disabled:opacity-60 flex items-center justify-center gap-2">
-          {isPurchasing ? (<><Loader2 size={18} className="animate-spin" />Processing...</>) : "Get Founders Pack — $14.99"}
+          {isPurchasing ? (<><Loader2 size={18} className="animate-spin" />Processing...</>) : "Subscribe to Forge Labs Pro"}
         </button>
-        <p className="text-[10px] text-slate-500 text-center mb-4">Secured by Google Play. Cancel anytime during processing.</p>
+        <p className="text-[10px] text-slate-500 text-center mb-4">Secured by Google Play. Manage or cancel anytime in your Google Play subscriptions.</p>
         <button onClick={handleRestore} disabled={isBusy} className="w-full text-center text-xs text-slate-500 py-2 min-h-[48px] disabled:opacity-40 flex items-center justify-center gap-1">
           {isRestoring ? (<><Loader2 size={14} className="animate-spin" />Restoring...</>) : "Restore Purchase"}
         </button>
